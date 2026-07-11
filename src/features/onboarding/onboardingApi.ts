@@ -144,5 +144,5 @@ export async function fetchFirstChallenge(): Promise<RecommendedChallenge | null
     .order('starts_at', { ascending: false })
     .limit(1)
     .maybeSingle();
-  return (data as RecommendedChallenge) ?? null;
+  return data ? (data as RecommendedChallenge) : null;
 }

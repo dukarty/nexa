@@ -1,7 +1,7 @@
-import type { Variants, Transition } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 
 /** Sistema de motion centralizado. Coherente, sobrio, sin rebotes infantiles. */
-export const ease: Transition['ease'] = [0.22, 1, 0.36, 1];
+export const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export const fadeUp: Variants = {
   hidden: { opacity: 0, y: 8 },
