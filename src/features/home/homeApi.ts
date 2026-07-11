@@ -51,7 +51,7 @@ export async function fetchWeeklyChallenge(): Promise<WeeklyChallenge | null> {
     .select(
       'id, title, description, emoji, difficulty, reward_points, week_number, season_year, ends_at, participant_count',
     )
-    .eq('status', 'active')
+    .eq('status', 'available')
     .eq('challenge_type', 'weekly')
     .order('starts_at', { ascending: false })
     .limit(1)

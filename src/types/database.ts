@@ -13,7 +13,7 @@ export type Json = string | number | boolean | null | { [key: string]: Json | un
 export type Difficulty = 'easy' | 'medium' | 'hard';
 export type ParticipationStatus =
   | 'started' | 'evidence_pending' | 'in_review' | 'approved' | 'rejected' | 'expired';
-export type ChallengeStatus = 'draft' | 'scheduled' | 'active' | 'closed';
+export type ChallengeStatus = 'draft' | 'scheduled' | 'available' | 'closed';
 export type AccountStatus = 'active' | 'suspended' | 'deleted';
 export type UserRole = 'user' | 'moderator' | 'admin';
 
@@ -98,11 +98,35 @@ export type ChallengeParticipation = {
   reward_granted: boolean;
 };
 
+export type ExperiencePost = {
+  id: string;
+  author_id: string;
+  challenge_id: string | null;
+  participation_id: string | null;
+  image_url: string | null;
+  caption: string | null;
+  city: string | null;
+  privacy: string;
+  moderation: 'pending' | 'approved' | 'rejected' | 'hidden';
+  interaction_count: number;
+  is_highlight: boolean;
+  created_at: string;
+};
+
 export type UserStreak = {
   user_id: string;
   current_streak: number;
   best_streak: number;
   last_week_completed: string | null;
+};
+
+export type MonthlyProgress = {
+  user_id: string;
+  year: number;
+  month: number;
+  experiences: number;
+  position: number | null;
+  passport_stamp: boolean;
 };
 
 /** Azúcar: una tabla estándar con Insert/Update derivados de la Row. */
@@ -122,7 +146,9 @@ export type Database = {
       user_interests: Table<UserInterest, 'user_id' | 'interest_id'>;
       challenges: Table<Challenge, 'title'>;
       challenge_participations: Table<ChallengeParticipation, 'user_id' | 'challenge_id'>;
+      experience_posts: Table<ExperiencePost, 'author_id'>;
       user_streaks: Table<UserStreak, 'user_id'>;
+      monthly_progress: Table<MonthlyProgress, 'user_id' | 'year' | 'month'>;
     };
     Views: { [_ in never]: never };
     Functions: {

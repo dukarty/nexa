@@ -140,7 +140,7 @@ export async function fetchFirstChallenge(): Promise<RecommendedChallenge | null
   const { data } = await supabase
     .from('challenges')
     .select('id, title, description, emoji, reward_points')
-    .eq('status', 'active')
+    .eq('status', 'available')
     .order('starts_at', { ascending: false })
     .limit(1)
     .maybeSingle();
