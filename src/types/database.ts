@@ -17,7 +17,7 @@ export type ChallengeStatus = 'draft' | 'scheduled' | 'active' | 'closed';
 export type AccountStatus = 'active' | 'suspended' | 'deleted';
 export type UserRole = 'user' | 'moderator' | 'admin';
 
-export interface UserRow {
+export type UserRow = {
   id: string;
   email: string | null;
   status: AccountStatus;
@@ -27,9 +27,9 @@ export interface UserRow {
   privacy: Json;
   created_at: string;
   last_seen_at: string;
-}
+};
 
-export interface UserProfile {
+export type UserProfile = {
   user_id: string;
   display_name: string | null;
   username: string | null;
@@ -43,23 +43,23 @@ export interface UserProfile {
   profile_complete: boolean;
   created_at: string;
   updated_at: string;
-}
+};
 
-export interface Interest {
+export type Interest = {
   id: string;
   slug: string;
   name: string;
   category: string;
   icon: string | null;
   active: boolean;
-}
+};
 
-export interface UserInterest {
+export type UserInterest = {
   user_id: string;
   interest_id: string;
-}
+};
 
-export interface Challenge {
+export type Challenge = {
   id: string;
   title: string;
   description: string | null;
@@ -79,9 +79,9 @@ export interface Challenge {
   status: ChallengeStatus;
   participant_count: number;
   created_at: string;
-}
+};
 
-export interface ChallengeParticipation {
+export type ChallengeParticipation = {
   id: string;
   user_id: string;
   challenge_id: string;
@@ -96,14 +96,14 @@ export interface ChallengeParticipation {
   reviewed_at: string | null;
   reject_reason: string | null;
   reward_granted: boolean;
-}
+};
 
-export interface UserStreak {
+export type UserStreak = {
   user_id: string;
   current_streak: number;
   best_streak: number;
   last_week_completed: string | null;
-}
+};
 
 /** Azúcar: una tabla estándar con Insert/Update derivados de la Row. */
 type Table<Row, Required extends keyof Row = never> = {
@@ -113,7 +113,7 @@ type Table<Row, Required extends keyof Row = never> = {
   Relationships: [];
 };
 
-export interface Database {
+export type Database = {
   public: {
     Tables: {
       users: Table<UserRow, 'id'>;
@@ -140,4 +140,4 @@ export interface Database {
     };
     CompositeTypes: { [_ in never]: never };
   };
-}
+};
