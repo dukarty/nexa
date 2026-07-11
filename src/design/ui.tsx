@@ -50,3 +50,49 @@ TextField.displayName = 'TextField';
 export function FormError({ children }: { children?: ReactNode }) {
   return <p role="alert" className="mt-3 min-h-[18px] text-center text-sm text-[#d33]">{children}</p>;
 }
+
+/** Píldora seleccionable (intereses, deportes…). */
+export function Chip({
+  selected,
+  children,
+  ...rest
+}: ButtonHTMLAttributes<HTMLButtonElement> & { selected?: boolean }) {
+  return (
+    <button
+      type="button"
+      aria-pressed={selected}
+      className={`rounded-full border-[1.5px] px-4 py-2.5 text-sm font-semibold transition active:scale-[.97] ${
+        selected
+          ? 'border-blue bg-blue text-white shadow-blue'
+          : 'border-line bg-surface text-ink hover:border-blue/40'
+      }`}
+      {...rest}
+    >
+      {children}
+    </button>
+  );
+}
+
+/** Barra de progreso por pasos del onboarding. */
+export function Progress({ step, total }: { step: number; total: number }) {
+  return (
+    <div className="flex gap-1.5" role="progressbar" aria-valuenow={step} aria-valuemin={1} aria-valuemax={total}>
+      {Array.from({ length: total }, (_, i) => (
+        <span
+          key={i}
+          className={`h-1 flex-1 rounded-full transition-colors duration-300 ${i < step ? 'bg-blue' : 'bg-line'}`}
+        />
+      ))}
+    </div>
+  );
+}
+
+/** Cabecera de paso: titular grande + subtítulo. Mantiene el ritmo visual entre pantallas. */
+export function StepHeader({ title, sub }: { title: string; sub?: string }) {
+  return (
+    <header className="mb-6 mt-8">
+      <h1 className="text-[26px] font-extrabold leading-tight tracking-tight text-ink">{title}</h1>
+      {sub && <p className="mt-2 text-[15px] leading-snug text-muted">{sub}</p>}
+    </header>
+  );
+}
